@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+Имя <p th:text="${user.getName() + ', ' + user.getSurName()}"></p>
+Возраст <p th:text="${user.getAge()}"></p>
+Пол <p th:text="${user.getSex()}"></p>
+<a th:href="@{/user/{id}/update(id=${user.getId()})}">Изменить</a>
+
+
+</body>
+</html>
