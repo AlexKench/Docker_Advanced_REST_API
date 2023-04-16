@@ -29,7 +29,7 @@ public class User {
 
     @Column(name = "password")
     private String password;
-    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -95,6 +95,7 @@ public class User {
     }
 
     public Set<Role> getRole() {
+        System.out.println("zap roles");
         return role;
     }
 

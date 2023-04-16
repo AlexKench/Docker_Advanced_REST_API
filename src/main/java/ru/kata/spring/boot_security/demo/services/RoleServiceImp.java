@@ -6,6 +6,7 @@ import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RoleServiceImp implements RoleService{
@@ -15,10 +16,7 @@ public class RoleServiceImp implements RoleService{
     public RoleServiceImp(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
-    @Override
-    public Role getRoleById(int id) {
-        return roleRepository.getById(id);
-    }
+
 
     @Override
     public List<Role> getRoles() {

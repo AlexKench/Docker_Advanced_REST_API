@@ -30,11 +30,18 @@
     <br><br>
     <div th:each="role : ${allRoles}">
         <label th:for="${role}" th:text="${role.name}">Role Name</label>
-        <input th:id="${role}" type="checkbox" th:value="${role}">
+        <input th:id="${role}" type="checkbox" th:value="${role}" th:field ="*{role}">
     </div>
     <br><br>
     <input type="submit" value="Создать"/>
 </form>
 
+<form action="/logout">
+    <input type="submit" value="logout">
+</form>
+
 </body>
+
+
+
 </html>

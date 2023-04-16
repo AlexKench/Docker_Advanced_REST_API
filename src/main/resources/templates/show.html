@@ -20,5 +20,10 @@ ROLE <div th:each="role : ${user.getRole()}">
 <a th:href="@{/admin/{id}/update(id=${user.getId()})}">Изменить</a>
 
 
+<form action="/logout">
+    <input type="submit" value="logout">
+</form>
+
+
 </body>
 </html>
