@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/user}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/user}" th:object="${user}">
     <label for="name">Имя: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <br>
@@ -21,11 +21,18 @@
     <input type="text" th:field="*{age}" id="age"/>
     <br/>
     <br/>
+    <label for="email">email: </label>
+    <input type="text" th:field="*{email}" id="email"/>
     <br/>
-    <label for="sex">Пол: </label>
-    <input type="text" th:field="*{sex}" id="sex"/>
     <br/>
-    <br/>
+    <label for="password">password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br><br>
+    <div th:each="role : ${allRoles}">
+        <label th:for="${role}" th:text="${role.name}">Role Name</label>
+        <input th:id="${role}" type="checkbox" th:value="${role}">
+    </div>
+    <br><br>
     <input type="submit" value="Создать"/>
 </form>
 

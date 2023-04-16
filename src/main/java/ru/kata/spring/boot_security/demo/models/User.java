@@ -1,7 +1,9 @@
 package ru.kata.spring.boot_security.demo.models;
+
+
 import javax.persistence.*;
 
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
@@ -22,24 +24,25 @@ public class User {
     @Column(name = "age")
     private int age;
 
-    @Column(name = "sex")
-    private String sex;
-
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
+    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> role = new HashSet<>();
 
     public User() {
 
     }
 
-    public User(String name, String surName, int age, String sex) {
+    public User(String name, String surName, int age) {
         this.name = name;
         this.surName = surName;
         this.age = age;
-        this.sex = sex;
     }
 
     public int getId() {
@@ -74,13 +77,6 @@ public class User {
         this.surName = surName;
     }
 
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
 
     public String getEmail() {
         return email;
@@ -98,6 +94,14 @@ public class User {
         this.password = password;
     }
 
+    public Set<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<Role> role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,7 +113,9 @@ public class User {
         if (age != user.age) return false;
         if (!Objects.equals(name, user.name)) return false;
         if (!Objects.equals(surName, user.surName)) return false;
-        return Objects.equals(sex, user.sex);
+        if (!Objects.equals(email, user.email)) return false;
+        if (!Objects.equals(password, user.password)) return false;
+        return Objects.equals(role, user.role);
     }
 
     @Override
@@ -118,7 +124,9 @@ public class User {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surName != null ? surName.hashCode() : 0);
         result = 31 * result + age;
-        result = 31 * result + (sex != null ? sex.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 
@@ -129,7 +137,9 @@ public class User {
                 ", name='" + name + '\'' +
                 ", surName='" + surName + '\'' +
                 ", age=" + age +
-                ", sex='" + sex + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }
