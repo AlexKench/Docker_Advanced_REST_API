@@ -29,10 +29,13 @@
     <input type="text" th:field="*{password}" id="password"/>
     <br><br>
 
-    <div th:each="role : ${allRoles}">
-        <label th:for="${role}" th:text="${role.name}">Role Name</label>
-        <input th:id="${role}" type="checkbox" th:value="${role}">
-    </div>
+    <select id="role-select" required class="form-control" th:field="*{role}" multiple="multiple" >
+        <option th:each="role : ${allRoles}"
+                th:field="*{role}"
+                th:value="${role.id}"
+                th:text="${role.name}">Role name
+        </option>
+    </select>
     <input type="submit" value="Обновить"/>
 </form>
 

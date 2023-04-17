@@ -4,20 +4,23 @@ package ru.kata.spring.boot_security.demo.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserServiceImp(UserRepository userRepository) {
+    public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public List<User> findAll() {
@@ -41,6 +44,11 @@ public class UserServiceImp implements UserService {
     @Transactional
     public void delete(int id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Role> getRoles() {
+        return roleRepository.findAll();
     }
 
 

@@ -29,11 +29,11 @@ public class User {
 
     @Column(name = "password")
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> role = new HashSet<>();
+    private List<Role> role = new ArrayList<>();
 
     public User() {
 
@@ -94,12 +94,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRole() {
-        System.out.println("zap roles");
+    public List<Role> getRole() {
         return role;
     }
 
-    public void setRole(Set<Role> role) {
+    public void setRole(List<Role> role) {
         this.role = role;
     }
 
