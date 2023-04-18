@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(name = "roles")
-public class Role implements GrantedAuthority {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,8 @@ public class Role implements GrantedAuthority {
 
     public Role() {
     }
+
+
 
     public Role(String name) {
         this.name = name;
@@ -41,10 +43,27 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        return id == role.id;
+    }
 
     @Override
-    public String getAuthority() {
-        return getName();
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
 

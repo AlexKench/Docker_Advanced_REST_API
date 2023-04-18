@@ -29,14 +29,23 @@ public class User {
 
     @Column(name = "password")
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> role = new ArrayList<>();
+    private Set<Role> role = new HashSet<>();
 
     public User() {
 
+    }
+
+    public User(String name, String surName, int age, String email, String password, Set<Role> role) {
+        this.name = name;
+        this.surName = surName;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
     public User(String name, String surName, int age) {
@@ -94,11 +103,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Role> getRole() {
+    public Set<Role> getRole() {
         return role;
     }
 
-    public void setRole(List<Role> role) {
+    public void setRole(Set<Role> role) {
         this.role = role;
     }
 
@@ -109,25 +118,12 @@ public class User {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
-        if (age != user.age) return false;
-        if (!Objects.equals(name, user.name)) return false;
-        if (!Objects.equals(surName, user.surName)) return false;
-        if (!Objects.equals(email, user.email)) return false;
-        if (!Objects.equals(password, user.password)) return false;
-        return Objects.equals(role, user.role);
+        return id == user.id;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surName != null ? surName.hashCode() : 0);
-        result = 31 * result + age;
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        return result;
+        return id;
     }
 
     @Override

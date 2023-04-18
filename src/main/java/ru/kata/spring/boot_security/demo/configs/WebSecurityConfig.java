@@ -14,7 +14,6 @@ import ru.kata.spring.boot_security.demo.services.SecurityUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final SecurityUserDetailsService securityUserDetailsService;
     private final SuccessUserHandler successUserHandler;
 
@@ -49,6 +48,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
+
+
+
 
 
 
