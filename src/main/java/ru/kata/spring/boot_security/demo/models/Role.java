@@ -2,8 +2,6 @@ package ru.kata.spring.boot_security.demo.models;
 
 import javax.persistence.*;
 
-import org.springframework.security.core.GrantedAuthority;
-
 
 
 @Entity
