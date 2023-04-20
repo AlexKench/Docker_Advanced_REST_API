@@ -5,24 +5,41 @@
     <title>Show</title>
 </head>
 <body>
-<h3>
-Имя  <p th:text="${user.getName()}"></p>
-Фамилия <p th:text="${user.getSurName()}"></p>
-Возраст <p th:text="${user.getAge()}"></p>
-Email <p th:text="${user.getEmail()}"></p>
-Пароль <p th:text="${user.getPassword()}"></p>
-ROLE <div th:each="role : ${user.getRole()}">
-    <p th:text="${role.name}"></p>
-</div>
-</h3>
+<table class="table" bordercolor="black" border="1" width="100%">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <td th:text="${user.getId()}"></td>
+    <td th:text="${user.getName()}"></td>
+    <td th:text="${user.getSurName()}"></td>
+    <td th:text="${user.getAge()}"></td>
+    <td th:text="${user.getUsername()}"></td>
+    <td th:each="role : ${user.getRole()}" th:text="${role.name}"></td>
+
+    </tr>
+    </tbody>
+
+</table>
 
 
 <a th:href="@{/admin/{id}/update(id=${user.getId()})}">Изменить</a>
 
-
+<form action="/admin/user/">
+    <input type="submit" value="admin">
+</form>
 <form action="/logout">
     <input type="submit" value="logout">
 </form>
+
 
 
 </body>

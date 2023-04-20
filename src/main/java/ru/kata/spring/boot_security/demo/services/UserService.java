@@ -19,6 +19,5 @@ public interface UserService {
 
     void delete(int id);
 
-    Set<Role> getRoles();
 
 }

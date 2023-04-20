@@ -1,7 +1,10 @@
 package ru.kata.spring.boot_security.demo.models;
 
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import java.util.*;
 
@@ -15,6 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank
     @Column(name = "name")
     private String name;
 
@@ -24,11 +28,14 @@ public class User {
     @Column(name = "age")
     private int age;
 
-    @Column(name = "email")
-    private String email;
+    @NotBlank
+    @Column(unique = true, name = "email")
+    private String username;
 
+    @NotBlank
     @Column(name = "password")
     private String password;
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -39,11 +46,12 @@ public class User {
 
     }
 
-    public User(String name, String surName, int age, String email, String password, Set<Role> role) {
+
+    public User(String name, String surName, int age, String username, String password, Set<Role> role) {
         this.name = name;
         this.surName = surName;
         this.age = age;
-        this.email = email;
+        this.username = username;
         this.password = password;
         this.role = role;
     }
@@ -86,14 +94,14 @@ public class User {
         this.surName = surName;
     }
 
-
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
 
     public String getPassword() {
         return password;
@@ -123,7 +131,14 @@ public class User {
 
     @Override
     public int hashCode() {
-        return id;
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surName != null ? surName.hashCode() : 0);
+        result = 31 * result + age;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -133,7 +148,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", surName='" + surName + '\'' +
                 ", age=" + age +
-                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 '}';
