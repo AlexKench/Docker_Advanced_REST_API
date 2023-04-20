@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import ru.kata.spring.boot_security.demo.security.SecurityUserDetails;
 
@@ -70,6 +69,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("Такого пользователя не существует");
+
         }
         return new SecurityUserDetails(user.get());
     }

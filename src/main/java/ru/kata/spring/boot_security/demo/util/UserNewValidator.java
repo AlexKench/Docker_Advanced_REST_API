@@ -8,6 +8,8 @@ import org.springframework.validation.Validator;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
+import java.util.Optional;
+
 @Component
 public class UserNewValidator implements Validator {
 
@@ -26,8 +28,8 @@ public class UserNewValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
-        User user_n = userRepository.findByUsername(user.getUsername());
-        if (user_n != null) {
+        Optional<User> user_n = userRepository.findByName(user.getUsername());
+        if (user_n.isPresent()) {
             errors.rejectValue("username", "", "This email is already in use");
         }
     }
