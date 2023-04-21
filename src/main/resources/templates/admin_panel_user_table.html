@@ -11,7 +11,8 @@
 
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <h4 th:each="role : ${authUser.getRole()}" th:value="${role.id}" th:text="${authUser.getUsername()} + '  With Roles:  ' +  ${role.name}" class="navbar-brand">USER</h4>
+        <h4 th:each="role : ${authUser.getRole()}" th:value="${role.id}"
+            th:text="${authUser.getUsername()} + '  With Roles:  ' +  ${role.name}" class="navbar-brand">USER</h4>
         <a href="/logout">
             <button type="button" class="btn btn-secondary">logout</button>
         </a>
@@ -75,9 +76,9 @@
                         </thead>
                         <tbody th:each="user : ${users}">
                         <tr>
-                            <th><p th:text="${user.getId()}"></p></a>
+                            <th><p th:text="${user.getId()}"></p>
                             </th>
-                            <th><p th:text="${user.getName()}"></p></a>
+                            <th><p th:text="${user.getName()}"></p>
                             </th>
                             <th><p th:text="${user.getSurName()}"></p></th>
                             <th><p th:text="${user.getAge()}"></p></th>
@@ -100,7 +101,7 @@
                                     Delete
                                 </button>
                             </th>
-                                              <!--Модальное Окно  EDIT-->
+                            <!--Модальное Окно  EDIT-->
                             <div aria-hidden="true" aria-labelledby="editModalLabel" id="editModal"
                                  tabindex="-1" class="modal fade" th:id="${'editModal'+user.id}">
                                 <div class="modal-dialog">
@@ -126,11 +127,11 @@
                                                                class="form-control" id="id"
                                                                disabled>
                                                         <br>
-                                                        <label for="username"><b>First name</b></label>
+                                                        <label for="name"><b>First name</b></label>
                                                         <input th:name="name"
                                                                th:value="${user.name}"
                                                                th:type="text"
-                                                               class="form-control" id="username"
+                                                               class="form-control" id="name"
                                                                required/>
                                                         <br>
                                                         <label for="lastnameEdit"><b>Last

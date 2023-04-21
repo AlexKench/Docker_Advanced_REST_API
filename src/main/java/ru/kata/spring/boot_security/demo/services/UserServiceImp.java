@@ -34,9 +34,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userRepository.findAll();
     }
 
-    public User findOne(int id) {
-        return userRepository.findById(id).orElseThrow();
-    }
 
     public User findOne() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -59,6 +59,7 @@
             <div class="col">
               <label for="firstname" class="form-label">First name</label>
               <input th:field="*{name}" type="text" class="form-control" placeholder="First name" aria-label="First name" id="firstname">
+              <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             </div>
             <div class="col">
               <label for="lastname" class="form-label">Last name</label>
@@ -67,12 +68,14 @@
             <div class="col">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
               <input th:field="*{username}" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
             </div>
           </div>
           <div class="row g-3">
             <div class="col">
               <label for="exampleInputPassword1" class="form-label">Password</label>
               <input th:field="*{password}" type="password" class="form-control" id="exampleInputPassword1">
+              <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             </div>
             <div class="col">
               <label for="age" class="form-label">Age</label>

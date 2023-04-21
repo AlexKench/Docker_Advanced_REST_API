@@ -44,6 +44,7 @@ public class AdminController {
         return "admin_panel_new_user";
     }
 
+
     @PostMapping("/admin/user")
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         userNewValidator.validate(user, bindingResult);
@@ -63,6 +64,7 @@ public class AdminController {
         userService.update(user);
         return "redirect:user";
     }
+
 
     @DeleteMapping("/admin/{id}")
     public String delete(@PathVariable("id") int id) {

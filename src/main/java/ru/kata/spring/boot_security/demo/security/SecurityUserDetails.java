@@ -39,7 +39,6 @@ public class SecurityUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        System.out.println("запрос логина");
         return user.getUsername();
     }
 
