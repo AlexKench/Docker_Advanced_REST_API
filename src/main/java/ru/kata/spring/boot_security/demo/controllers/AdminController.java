@@ -30,44 +30,35 @@ public class AdminController {
 
     @GetMapping("/admin/user")
     public String showAllUser(Model model) {
+        model.addAttribute("authUser", userService.findOne());
         model.addAttribute("users", userService.findAll());
-        return "index";
+        model.addAttribute("allRoles", rolesService.getRoles());
+        return "admin_panel_user_table";
     }
 
-    @GetMapping("/admin/{id}")
-    public String showOneUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findOne(id));
-        return "show";
-    }
 
     @GetMapping("/admin/new")
     public String showPageCreatingUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("allRoles", rolesService.getRoles());
-        return "new";
+        return "admin_panel_new_user";
     }
 
     @PostMapping("/admin/user")
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         userNewValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "new";
+            return "admin_panel_new_user";
         }
         userService.save(user);
         return "redirect:/admin/user";
     }
 
-    @GetMapping("/admin/{id}/update")
-    public String showPageEditUser(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.findOne(id));
-        model.addAttribute("allRoles", rolesService.getRoles());
-        return "update";
-    }
 
     @PatchMapping("/admin/{id}")
     public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "update";
+            return "admin_panel_user_table";
         }
         userService.update(user);
         return "redirect:user";
