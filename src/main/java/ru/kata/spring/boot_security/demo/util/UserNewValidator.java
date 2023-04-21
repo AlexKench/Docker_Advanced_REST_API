@@ -7,8 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
-
 import java.util.Optional;
+
 
 @Component
 public class UserNewValidator implements Validator {

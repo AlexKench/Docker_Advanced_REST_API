@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import ru.kata.spring.boot_security.demo.security.SecurityUserDetails;
-
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class UserServiceImp implements UserService, UserDetailsService {
@@ -25,11 +25,10 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
 
     @Autowired
-    public UserServiceImp(UserRepository userRepository,PasswordEncoder passwordEncoder) {
+    public UserServiceImp(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -42,7 +41,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public User findOne() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ((SecurityUserDetails) authentication.getPrincipal()).getUser();
-
     }
 
     @Transactional
@@ -62,17 +60,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
         userRepository.deleteById(id);
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByName(username);
-
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("Такого пользователя не существует");
-
         }
         return new SecurityUserDetails(user.get());
     }
-
-
 }

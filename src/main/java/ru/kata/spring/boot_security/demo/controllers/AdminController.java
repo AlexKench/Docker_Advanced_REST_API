@@ -9,11 +9,13 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.RolesService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 import ru.kata.spring.boot_security.demo.util.UserNewValidator;
-
 import javax.validation.Valid;
+
 
 @Controller
 public class AdminController {
+
+
     private final RolesService rolesService;
     private final UserService userService;
     private final UserNewValidator userNewValidator;
@@ -46,8 +48,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/user")
-    public String create(@ModelAttribute("user") @Valid User user,
-                         BindingResult bindingResult) {
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         userNewValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "new";
@@ -77,6 +78,5 @@ public class AdminController {
         userService.delete(id);
         return "redirect:user";
     }
-
 
 }

@@ -3,7 +3,6 @@ package ru.kata.spring.boot_security.demo.models;
 import javax.persistence.*;
 
 
-
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -12,14 +11,12 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "name")
     private String name;
 
-
     public Role() {
     }
-
-
 
     public Role(String name) {
         this.name = name;
@@ -43,11 +40,13 @@ public class Role {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Role role = (Role) o;
-
         return id == role.id;
     }
 
@@ -65,6 +64,4 @@ public class Role {
                 ", name='" + name + '\'' +
                 '}';
     }
-
-
 }

@@ -1,17 +1,14 @@
 package ru.kata.spring.boot_security.demo.models;
 
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-
 import java.util.*;
+
 
 @Entity
 @Table(name = "user")
 public class User {
-
 
     @Id
     @Column(name = "id")
@@ -42,10 +39,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> role = new HashSet<>();
 
+
     public User() {
 
     }
-
 
     public User(String name, String surName, int age, String username, String password, Set<Role> role) {
         this.name = name;
@@ -102,7 +99,6 @@ public class User {
         this.username = username;
     }
 
-
     public String getPassword() {
         return password;
     }
@@ -121,11 +117,13 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-
         return id == user.id;
     }
 
