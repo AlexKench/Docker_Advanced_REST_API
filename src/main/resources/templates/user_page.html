@@ -27,7 +27,7 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div class="position-sticky pt-3">
                 <ul class="nav nav-pills flex-column">
-                    <li style="display: none" th:id="${authUser.getRole()}" class="nav-item">
+                    <li style="display: none" id="btn_admin" class="nav-item">
                         <a class="nav-link " aria-current="page" href="/admin/user">
                             ADMIN
                         </a>
@@ -70,7 +70,7 @@
                             <th><p th:text="${user.getUsername()}"></p></th>
                             <th>
                                 <div th:each="role : ${user.getRole()}">
-                                    <p th:text="${role.name.toString()}"></p>
+                                    <p id="role_field" th:text="${role.name.toString()}"></p>
                                 </div>
                             </th>
                         </tr>
@@ -84,8 +84,9 @@
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 <script>
-    if (document.getElementById("ROLE_ADMIN")){
-        document.getElementById("ROLE_ADMIN").style.display = "block"
+    if (document.getElementById("role_field").textContent === "ROLE_ADMIN"){
+        document.getElementById("btn_admin").style.display = "block"
+
     }
 
 </script>
