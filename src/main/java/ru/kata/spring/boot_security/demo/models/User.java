@@ -15,7 +15,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank
     @Column(name = "name")
     private String name;
 
@@ -41,7 +40,6 @@ public class User {
 
 
     public User() {
-
     }
 
     public User(String name, String surName, int age, String username, String password, Set<Role> role) {
@@ -113,6 +111,14 @@ public class User {
 
     public void setRole(Set<Role> role) {
         this.role = role;
+    }
+
+    public String getStringRole(){
+        StringBuilder result = new StringBuilder();
+        for (Role r : this.role){
+            result.append(r.toString()).append("      ");
+        }
+        return result.toString();
     }
 
     @Override

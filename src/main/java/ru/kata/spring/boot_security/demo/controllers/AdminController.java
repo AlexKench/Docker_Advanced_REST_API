@@ -32,16 +32,9 @@ public class AdminController {
     public String showAllUser(Model model) {
         model.addAttribute("authUser", userService.findOne());
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("newUser", new User());
         model.addAttribute("allRoles", rolesService.getRoles());
         return "admin_panel_user_table";
-    }
-
-
-    @GetMapping("/admin/new")
-    public String showPageCreatingUser(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("allRoles", rolesService.getRoles());
-        return "admin_panel_new_user";
     }
 
 
@@ -49,7 +42,7 @@ public class AdminController {
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         userNewValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "admin_panel_new_user";
+            return "redirect:/admin/user";
         }
         userService.save(user);
         return "redirect:/admin/user";
@@ -59,17 +52,18 @@ public class AdminController {
     @PatchMapping("/admin/{id}")
     public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "admin_panel_user_table";
+            return "redirect:/admin/user";
         }
         userService.update(user);
-        return "redirect:user";
+        return "redirect:/admin/user";
     }
 
 
     @DeleteMapping("/admin/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
-        return "redirect:user";
+        return "redirect:/admin/user";
     }
+
 
 }
