@@ -32,7 +32,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -47,6 +47,14 @@ public class User {
         this.surName = surName;
         this.age = age;
         this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(String name, String surName, int age, String password, Set<Role> role) {
+        this.name = name;
+        this.surName = surName;
+        this.age = age;
         this.password = password;
         this.role = role;
     }

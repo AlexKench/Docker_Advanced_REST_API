@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import ru.kata.spring.boot_security.demo.security.SecurityUserDetails;
+import ru.kata.spring.boot_security.demo.util.UserNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -40,14 +42,13 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return ((SecurityUserDetails) authentication.getPrincipal()).getUser();
     }
 
-    @Transactional
-    public void save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+    @Override
+    public User findOneId(int id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     @Transactional
-    public void update(User user) {
+    public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

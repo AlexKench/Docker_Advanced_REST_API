@@ -9,9 +9,9 @@ public interface UserService {
 
     User findOne();
 
-    void save(User user);
+    User findOneId(int id);
 
-    void update(User user);
+    void save(User user);
 
     void delete(int id);
 
