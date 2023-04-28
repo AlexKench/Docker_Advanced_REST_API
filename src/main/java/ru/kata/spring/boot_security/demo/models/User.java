@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.models;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.*;
 
@@ -24,9 +25,12 @@ public class User {
     @Column(name = "age")
     private int age;
 
+    @NotBlank
+    @Email
     @Column(unique = true, name = "email")
     private String username;
 
+    @NotBlank
     @Column(name = "password")
     private String password;
 

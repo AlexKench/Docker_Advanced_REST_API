@@ -41,12 +41,12 @@ public class RestApiController {
 
     @PostMapping("/user")
     public ResponseEntity<HttpStatus> createNewUser(@RequestBody @Valid User user, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            StringBuilder errorMessage = new StringBuilder();
-//            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-//            fieldErrors.forEach(fieldError -> errorMessage.append(fieldErrors).append("::: \n"));
-//            throw new UserNotCreatedException(errorMessage.toString());
-//        }
+        if (bindingResult.hasErrors()) {
+            StringBuilder errorMessage = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            fieldErrors.forEach(fieldError -> errorMessage.append(fieldErrors).append("::: \n"));
+            throw new UserNotCreatedException(errorMessage.toString());
+        }
         userService.save(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
