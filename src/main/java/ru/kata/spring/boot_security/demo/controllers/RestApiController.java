@@ -41,24 +41,24 @@ public class RestApiController {
 
     @PostMapping("/user")
     public ResponseEntity<HttpStatus> createNewUser(@RequestBody @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            StringBuilder errorMessage = new StringBuilder();
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            fieldErrors.forEach(fieldError -> errorMessage.append(fieldErrors).append("::: \n"));
-            throw new UserNotCreatedException(errorMessage.toString());
-        }
+//        if (bindingResult.hasErrors()) {
+//            StringBuilder errorMessage = new StringBuilder();
+//            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+//            fieldErrors.forEach(fieldError -> errorMessage.append(fieldErrors).append("::: \n"));
+//            throw new UserNotCreatedException(errorMessage.toString());
+//        }
         userService.save(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PutMapping("/user")
+    @PutMapping("/user{id}")
     public ResponseEntity<HttpStatus> updateUser(@RequestBody User user){
         userService.save(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<HttpStatus> updateUser(@PathVariable("id") int id) {
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") int id) {
         userService.delete(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }

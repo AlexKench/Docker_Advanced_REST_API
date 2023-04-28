@@ -24,11 +24,9 @@ public class User {
     @Column(name = "age")
     private int age;
 
-    @NotBlank
     @Column(unique = true, name = "email")
     private String username;
 
-    @NotBlank
     @Column(name = "password")
     private String password;
 

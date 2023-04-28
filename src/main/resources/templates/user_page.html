@@ -82,7 +82,7 @@
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 <script>
-    if (document.getElementById("role_field").textContent === "ROLE_ADMIN"){
+    if (document.getElementById("role_field").textContent.includes("ROLE_ADMIN")){
         document.getElementById("btn_admin").style.display = "block"
     }else {
         document.getElementById("btn_admin").style.display = "none"
