@@ -27,8 +27,8 @@
 //    private void postConstruct() {
 //        Role roleAdmin = new Role("ROLE_ADMIN");
 //        Role roleUser = new Role("ROLE_USER");
-//        roleRepository.save(roleAdmin);
-//        roleRepository.save(roleUser);
+////        roleRepository.save(roleAdmin);
+////        roleRepository.save(roleUser);
 //
 //        User user = new User("user", "user", 500, "user@gmail.com","user", Set.of(roleUser));
 //        User admin = new User("admin", "admin", 500, "admin@gmail.com","admin", Set.of(roleAdmin));

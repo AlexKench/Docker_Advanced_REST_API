@@ -164,8 +164,8 @@
                         <div aria-hidden="true" aria-labelledby="deleteModal" id="deleteModal"
                              tabindex="-1" class="modal fade">
                             <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form th:method="delete">
+                                <div id="delete__content" class="modal-content">
+                                    <form id="modal__form__delete">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="deleteModalLabel">Delete
                                                 user</h5>
@@ -179,7 +179,7 @@
                                                 <div class="controls">
 
                                                     <label for="idDel"><b>ID</b></label>
-                                                    <input class="form-control" id="idDel" disabled>
+                                                    <input class="form-control" id="idDel">
                                                     <br>
 
                                                     <label for="firstnameDel"><b>First name</b></label>
@@ -213,15 +213,17 @@
 <!--                                                            Role name-->
 <!--                                                        </option>-->
 <!--                                                    </select>-->
+                                                    <div id="btn_del_edit">
                                                     <div class="modal-footer">
                                                         <button type="button"
                                                                 class="btn btn-secondary"
                                                                 data-dismiss="modal">Close
                                                         </button>
-                                                        <button onclick="deleteUser()" type="submit"
+                                                        <button id="delete_user" type="submit"
                                                                 class="btn btn-danger delete__btn">
                                                             Delete
                                                         </button>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -266,17 +268,16 @@
                                                 <label for="age" class="col-form-label font-weight-bold">Age</label>
                                                 <input type="number" class="form-control age__input" id="age">
                                             </div>
-                                            <!--                                            <div class="form-group text-center ">-->
-                                            <!--                                                <label class="col-form-label font-weight-bold" for="role">Role</label>-->
-                                            <!--                                                <select th:field="*{role}" class="form-select" multiple size="2"-->
-                                            <!--                                                        aria-label="Default select example" id="role">-->
-                                            <!--                                                    <option th:each="role : ${allRoles}"-->
-                                            <!--                                                            th:field="*{role}"-->
-                                            <!--                                                            th:value="${role.id}"-->
-                                            <!--                                                            th:text="${role.name}">-->
-                                            <!--                                                    </option>-->
-                                            <!--                                                </select>-->
-                                            <!--                                            </div>-->
+                                            <div class="form-group text-center ">
+                                                <label class="col-form-label font-weight-bold" for="role">Role</label>
+                                                <select  class="form-select" multiple size="2"
+                                                        aria-label="Default select example" id="role">
+                                                    <option id="select__role">
+                                                    <option value="1">ROLE_ADMIN</option>
+                                                    <option value="2">ROLE_USER</option>
+                                                    </option>
+                                                </select>
+                                            </div>
                                             <div class="form-group text-center ">
                                                 <button type="submit" class="btn btn-success text-white addUser__btn">
                                                     ADD NEW USER
@@ -293,6 +294,9 @@
             </div>
         </div>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
         <script src="/js/adminJS.js"></script>
 
 
