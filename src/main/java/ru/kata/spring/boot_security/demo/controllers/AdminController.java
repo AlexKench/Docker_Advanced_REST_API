@@ -1,31 +1,31 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+//import org.springframework.ui.Model;
+//import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.services.RolesService;
-import ru.kata.spring.boot_security.demo.services.UserService;
-//import ru.kata.spring.boot_security.demo.util.UserNewValidator;
-import javax.validation.Valid;
+//import ru.kata.spring.boot_security.demo.models.User;
+//import ru.kata.spring.boot_security.demo.services.RolesService;
+//import ru.kata.spring.boot_security.demo.services.UserService;
+////import ru.kata.spring.boot_security.demo.util.UserNewValidator;
+//import javax.validation.Valid;
 
 
 @Controller
 public class AdminController {
 
-
-    private final RolesService rolesService;
-    private final UserService userService;
-//    private final UserNewValidator userNewValidator;
-
-
-    @Autowired
-    public AdminController(RolesService rolesService, UserService userService) {
-        this.rolesService = rolesService;
-        this.userService = userService;
-    }
+//
+//    private final RolesService rolesService;
+//    private final UserService userService;
+////    private final UserNewValidator userNewValidator;
+//
+//
+//    @Autowired
+//    public AdminController(RolesService rolesService, UserService userService) {
+//        this.rolesService = rolesService;
+//        this.userService = userService;
+//    }
 
     @GetMapping("/admin")
     public String showAllUser() {
