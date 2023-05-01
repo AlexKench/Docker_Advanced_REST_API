@@ -89,7 +89,7 @@
                              tabindex="-1" class="modal fade">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form th:method="PUT">
+                                    <form id="modal__form__edit">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="editModalLabel">Edit
                                                 user</h5>
@@ -102,14 +102,14 @@
                                             <div class="form-group required">
                                                 <div class="controls">
 
-                                                    <label for="id"><b>ID</b></label>
+                                                    <label for="idEdit"><b>ID</b></label>
                                                     <input type="number"
-                                                           class="form-control" id="id"
+                                                           class="form-control" id="idEdit"
                                                            disabled>
                                                     <br>
-                                                    <label for="name"><b>First name</b></label>
+                                                    <label for="nameEdit"><b>First name</b></label>
                                                     <input type="text"
-                                                           class="form-control" id="name"
+                                                           class="form-control" id="nameEdit"
                                                            required/>
                                                     <br>
                                                     <label for="lastnameEdit"><b>Last
@@ -128,10 +128,10 @@
                                                            class="form-control" id="emailEdit"
                                                            required/>
                                                     <br>
-                                                    <label for="pass"><b>Password</b></label>
+                                                    <label for="passwordEdit"><b>Password</b></label>
                                                     <input type="password"
                                                            class="form-control"
-                                                           id="pass"/>
+                                                           id="passwordEdit"/>
                                                     <br>
 <!--                                                    <label for="rolesEdit"><b>Role</b></label>-->
 <!--                                                    <select class="form-control" id="rolesEdit"-->

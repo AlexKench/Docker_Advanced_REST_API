@@ -51,7 +51,7 @@ public class RestApiController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PutMapping("/user{id}")
+    @PutMapping("/user")
     public ResponseEntity<HttpStatus> updateUser(@RequestBody User user){
         userService.save(user);
         return ResponseEntity.ok(HttpStatus.OK);

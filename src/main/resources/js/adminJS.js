@@ -17,12 +17,12 @@ const renderTable = (user) => {
                 <th><p>${roleLet.slice(0, roleLet.length - 3)}</p></th>
                  
                 <th>
-                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#editModal">Edit</button>
+                    <button data-id="${user.id}" type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#editModal" id="editbtn">Edit</button>
                 </th>
                 <th>
                     <button data-id="${user.id}" type="button" class="btn btn-danger " data-toggle="modal"
-                            data-target="#deleteModal" id="dbtn">Delete</button>
+                            data-target="#deleteModal" id="delbtn">Delete</button>
                     </th>
                 </tr>
             `;
@@ -78,23 +78,39 @@ addNewUserBtn.addEventListener("click", () => {
 
 
 userTable.addEventListener('click', (e) => {
-    fetch(`${URL}/${e.target.dataset.id}`)
-        .then(res => res.json())
-        .then(data => {
-                document.querySelector("#idDel").value = data.id
-                document.querySelector("#firstnameDel").value = data.name
-                document.querySelector("#lastnameDel").value = data.surName
-                document.querySelector("#emailDel").value = data.username
-                document.querySelector("#ageDel").value = data.age
-            }
-        )
+    console.log(e.target)
+    if (e.target.id === 'delbtn') {
+        fetch(`${URL}/${e.target.dataset.id}`)
+            .then(res => res.json())
+            .then(data => {
+                    document.querySelector("#idDel").value = data.id
+                    document.querySelector("#firstnameDel").value = data.name
+                    document.querySelector("#lastnameDel").value = data.surName
+                    document.querySelector("#emailDel").value = data.username
+                    document.querySelector("#ageDel").value = data.age
+                }
+            )
+    } else if (e.target.id === 'editbtn') {
+        fetch(`${URL}/${e.target.dataset.id}`)
+            .then(res => res.json())
+            .then(data => {
+                    document.querySelector("#idEdit").value = data.id
+                    document.querySelector("#nameEdit").value = data.name
+                    document.querySelector("#lastnameEdit").value = data.surName
+                    document.querySelector("#emailEdit").value = data.username
+                    document.querySelector("#ageEdit").value = data.age
+                }
+            )
+
+    }
 })
 
 
-let modalFormDelete = document.querySelector('#modal__form__delete')
+let modalFormDelete = document.querySelector('#modal__form__delete');
 
 modalFormDelete.addEventListener('submit', (e) => {
     let userId = document.querySelector("#idDel").value
+
     fetch(`${URL}/${userId}`, {
         method: "delete"
     })
@@ -107,6 +123,41 @@ modalFormDelete.addEventListener('submit', (e) => {
         .then(data => renderTable(data))
 
 })
+
+let modalFormEdit = document.querySelector('#modal__form__edit');
+
+modalFormEdit.addEventListener('submit', (e) => {
+    const user = {
+        id: document.querySelector("#idEdit").value,
+        name: document.querySelector("#nameEdit").value,
+        surName: document.querySelector("#lastnameEdit").value,
+        username: document.querySelector("#emailEdit").value,
+        password: passwordField.value,
+        age: document.querySelector("#ageEdit").value,
+        role: [
+            {
+                name: "ROLE_USER"
+            }
+        ]
+    }
+    fetch(`${URL}`, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(user),
+    })
+        .then(res => console.log(res))
+        .then(() => {
+            outputUser = ''
+        })
+    fetch(URL)
+        .then(res => res.json())
+        .then(data => renderTable(data))
+
+})
+
+
 
 
 
