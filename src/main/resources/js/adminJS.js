@@ -36,6 +36,22 @@ fetch(URL)
     .then(res => res.json())
     .then(data => renderTable(data))
 
+const selectRoleForm = document.getElementById('roles');
+const rolesListUrl = 'http://localhost:8011/api/roles';
+
+
+fetch(rolesListUrl)
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        let options = '';
+        for (const [k, v] of Object.entries(data)) {
+            options += `<option value="${Number(k)+ 1}">${v.name}</option>`;
+        }
+        selectRoleForm.innerHTML = options;
+        console.log(options)
+    })
+
 // добавляем пользователя
 let firstNameField = document.querySelector(".firstname__input");
 let surNameField = document.querySelector(".surname__input");
@@ -43,18 +59,32 @@ let userNameField = document.querySelector(".email__input");
 let passwordField = document.querySelector(".password__input");
 let ageField = document.querySelector(".age__input");
 let addNewUserBtn = document.querySelector(".addUser__btn");
-addNewUserBtn.addEventListener("click", () => {
+let roleById = document.getElementById('roles');
+
+
+
+
+
+
+addNewUserBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+    const roles = [];
+    for (let i = 0; i < roleById.options.length; i++) {
+        if (roleById.options[i].selected) {
+            roles.push({
+                id: roleById.options[i].value,
+                name: roleById.options[i].text
+            });
+        }
+    }
+    console.log(roles)
     const user = {
         name: firstNameField.value,
         surName: surNameField.value,
         username: userNameField.value,
         password: passwordField.value,
         age: ageField.value,
-        role: [
-            {
-                name: "ROLE_USER"
-            }
-        ]
+        role: roles
     }
 
     try {
@@ -67,7 +97,7 @@ addNewUserBtn.addEventListener("click", () => {
         })
             .then(res => res.json())
             .then(data => {
-                renderTable(data)
+                console.log(data)
             })
 
     } catch (error) {

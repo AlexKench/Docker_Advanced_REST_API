@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.services.RolesService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 import ru.kata.spring.boot_security.demo.util.UserNotCreatedException;
 import ru.kata.spring.boot_security.demo.util.UserNotFoundException;
@@ -16,17 +18,20 @@ import ru.kata.spring.boot_security.demo.util.UserResponseException;
 import javax.validation.Valid;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
 public class RestApiController {
 
     private final UserService userService;
+    private final RolesService rolesService;
 
 
     @Autowired
-    public RestApiController(UserService userService) {
+    public RestApiController(UserService userService, RolesService rolesService) {
         this.userService = userService;
+        this.rolesService = rolesService;
     }
 
     @GetMapping("/user")
@@ -38,6 +43,13 @@ public class RestApiController {
     public User getUserById(@PathVariable("id") int id) {
         return userService.findOneId(id);
     }
+
+    @GetMapping("/roles")
+    public ResponseEntity<Set<Role>> getAllRoles() {
+        Set<Role> roleList = rolesService.getRoles();
+        return ResponseEntity.ok(roleList);
+    }
+
 
     @PostMapping("/user")
     public ResponseEntity<HttpStatus> createNewUser(@RequestBody @Valid User user, BindingResult bindingResult) {
