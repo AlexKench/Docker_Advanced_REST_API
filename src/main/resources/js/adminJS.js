@@ -46,7 +46,7 @@ fetch(rolesListUrl)
         console.log(data)
         let options = '';
         for (const [k, v] of Object.entries(data)) {
-            options += `<option value="${Number(k)+ 1}">${v.name}</option>`;
+            options += `<option value="${Number(k) + 1}">${v.name}</option>`;
         }
         selectRoleForm.innerHTML = options;
         console.log(options)
@@ -60,10 +60,6 @@ let passwordField = document.querySelector(".password__input");
 let ageField = document.querySelector(".age__input");
 let addNewUserBtn = document.querySelector(".addUser__btn");
 let roleById = document.getElementById('roles');
-
-
-
-
 
 
 addNewUserBtn.addEventListener("click", (e) => {
@@ -113,24 +109,40 @@ userTable.addEventListener('click', (e) => {
         fetch(`${URL}/${e.target.dataset.id}`)
             .then(res => res.json())
             .then(data => {
+                    let roles = '';
+                    data.role.forEach(role => roles += role.name + "  ")
                     document.querySelector("#idDel").value = data.id
                     document.querySelector("#firstnameDel").value = data.name
                     document.querySelector("#lastnameDel").value = data.surName
                     document.querySelector("#emailDel").value = data.username
                     document.querySelector("#ageDel").value = data.age
+                    document.querySelector("#roles_delete").value = roles
+                    console.log(roles)
                 }
             )
     } else if (e.target.id === 'editbtn') {
         fetch(`${URL}/${e.target.dataset.id}`)
             .then(res => res.json())
             .then(data => {
-                    document.querySelector("#idEdit").value = data.id
-                    document.querySelector("#nameEdit").value = data.name
-                    document.querySelector("#lastnameEdit").value = data.surName
-                    document.querySelector("#emailEdit").value = data.username
-                    document.querySelector("#ageEdit").value = data.age
-                }
-            )
+                document.querySelector("#idEdit").value = data.id
+                document.querySelector("#nameEdit").value = data.name
+                document.querySelector("#lastnameEdit").value = data.surName
+                document.querySelector("#emailEdit").value = data.username
+                document.querySelector("#ageEdit").value = data.age
+                fetch(rolesListUrl)
+                    .then(res => res.json())
+                    .then(rolesData => {
+                        let options = '';
+                        for (const [id, name] of Object.entries(rolesData)) {
+                            const selected = data.role.some(role => role.id === id) ? 'selected' : '';
+                            options += `<option value="${Number(id)+1}" ${selected}>${name.name}</option>`;
+                        }
+
+                        $('#roles_edit').html(options);
+                    })
+                    .catch(err => console.error(err));
+            });
+
 
     }
 })
@@ -155,8 +167,20 @@ modalFormDelete.addEventListener('submit', (e) => {
 })
 
 let modalFormEdit = document.querySelector('#modal__form__edit');
+let roleEdit = document.querySelector('#roles_edit')
 
 modalFormEdit.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const rol = [];
+    for (let i = 1; i < roleEdit.options.length+1; i++) {
+        if (roleEdit.options[i-1].selected) {
+            rol.push({
+                id: roleEdit.options[i-1].value,
+                name: roleEdit.options[i-1].text
+            });
+        }
+    }
+    console.log(rol)
     const user = {
         id: document.querySelector("#idEdit").value,
         name: document.querySelector("#nameEdit").value,
@@ -164,11 +188,7 @@ modalFormEdit.addEventListener('submit', (e) => {
         username: document.querySelector("#emailEdit").value,
         password: passwordField.value,
         age: document.querySelector("#ageEdit").value,
-        role: [
-            {
-                name: "ROLE_USER"
-            }
-        ]
+        role: rol
     }
     fetch(`${URL}`, {
         method: 'put',
@@ -183,7 +203,7 @@ modalFormEdit.addEventListener('submit', (e) => {
         })
     fetch(URL)
         .then(res => res.json())
-        .then(data => renderTable(data))
+        .then(data => console.log(data))
 
 })
 

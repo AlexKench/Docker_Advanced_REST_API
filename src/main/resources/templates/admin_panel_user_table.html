@@ -133,16 +133,14 @@
                                                            class="form-control"
                                                            id="passwordEdit"/>
                                                     <br>
-<!--                                                    <label for="rolesEdit"><b>Role</b></label>-->
-<!--                                                    <select class="form-control" id="rolesEdit"-->
-<!--                                                            name="role"-->
-<!--                                                            multiple="multiple">-->
-<!--                                                        <option th:each="role : ${allRoles}"-->
-<!--                                                                th:selected="${role.name}"-->
-<!--                                                                th:value="${role.id}"-->
-<!--                                                                th:text="${role.name}">Role name-->
-<!--                                                        </option>-->
-<!--                                                    </select>-->
+                                                    <div class="form-group text-center">
+                                                        <label class="col-form-label font-weight-bold"
+                                                               for="roles">Role</label>
+                                                        <select class="form-control" id="roles_edit" multiple size="2">
+<!--                                                            <option value="1">ROLE_USER</option>-->
+<!--                                                            <option value="2">ROLE_ADMIN</option>-->
+                                                        </select>
+                                                    </div>
                                                     <div class="modal-footer">
                                                         <button type="button"
                                                                 class="btn btn-secondary"
@@ -201,18 +199,8 @@
                                                     <label for="passwordDel"><b>Password</b></label>
                                                     <input type="password" class="form-control" id="passwordDel" disabled/>
                                                     <br>
-
-<!--                                                    <label for="rolesDel"><b>Role</b></label>-->
-<!--                                                    <select class="form-control" id="rolesDel"-->
-<!--                                                            name="roles"-->
-<!--                                                            multiple="multiple">-->
-<!--                                                        <option th:each="role : ${user.getRole()}"-->
-<!--                                                                th:value="${role.id}"-->
-<!--                                                                th:text="${role.name}"-->
-<!--                                                                disabled>-->
-<!--                                                            Role name-->
-<!--                                                        </option>-->
-<!--                                                    </select>-->
+                                                    <label for="roles_delete"><b>Role</b></label>
+                                                    <input type="text" class="form-control" id="roles_delete" disabled/>
                                                     <div id="btn_del_edit">
                                                     <div class="modal-footer">
                                                         <button type="button"
