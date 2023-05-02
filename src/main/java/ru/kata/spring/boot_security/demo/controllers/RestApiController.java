@@ -4,7 +4,10 @@ package ru.kata.spring.boot_security.demo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
@@ -13,7 +16,6 @@ import ru.kata.spring.boot_security.demo.services.UserService;
 import ru.kata.spring.boot_security.demo.util.UserNotCreatedException;
 import ru.kata.spring.boot_security.demo.util.UserNotFoundException;
 import ru.kata.spring.boot_security.demo.util.UserResponseException;
-
 import javax.validation.Valid;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -52,18 +54,18 @@ public class RestApiController {
 
     @PostMapping("/user")
     public ResponseEntity<HttpStatus> createNewUser(@RequestBody @Valid User user, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            StringBuilder errorMessage = new StringBuilder();
-//            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-//            fieldErrors.forEach(fieldError -> errorMessage.append(fieldErrors).append("::: \n"));
-//            throw new UserNotCreatedException(errorMessage.toString());
-//        }
+        if (bindingResult.hasErrors()) {
+            StringBuilder errorMessage = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            fieldErrors.forEach(fieldError -> errorMessage.append(fieldErrors).append("::: \n"));
+            throw new UserNotCreatedException(errorMessage.toString());
+        }
         userService.save(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PutMapping("/user")
-    public ResponseEntity<HttpStatus> updateUser(@RequestBody User user){
+    public ResponseEntity<HttpStatus> updateUser(@RequestBody User user) {
         userService.save(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -74,23 +76,29 @@ public class RestApiController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-
-
-
-        @ExceptionHandler
-        public ResponseEntity<UserResponseException> handleException (UserNotFoundException e){
-            UserResponseException userResponseException = new UserResponseException("User Not Found");
-            return new ResponseEntity<>(userResponseException, HttpStatus.NOT_FOUND);
-        }
-        @ExceptionHandler
-        public ResponseEntity<UserResponseException> handleException (UserNotCreatedException e){
-            UserResponseException userResponseException = new UserResponseException(e.getMessage());
-            return new ResponseEntity<>(userResponseException, HttpStatus.BAD_REQUEST);
-        }
-
-        @ExceptionHandler
-        public ResponseEntity<UserResponseException> handleException (SQLIntegrityConstraintViolationException e){
-            UserResponseException userResponseException = new UserResponseException("User with this email already exists");
-            return new ResponseEntity<>(userResponseException, HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping("/main")
+    public ResponseEntity<User> showUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(user);
     }
+
+
+    @ExceptionHandler
+    public ResponseEntity<UserResponseException> handleException(UserNotFoundException e) {
+        UserResponseException userResponseException = new UserResponseException("User Not Found");
+        return new ResponseEntity<>(userResponseException, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<UserResponseException> handleException(UserNotCreatedException e) {
+        UserResponseException userResponseException = new UserResponseException(e.getMessage());
+        return new ResponseEntity<>(userResponseException, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<UserResponseException> handleException(SQLIntegrityConstraintViolationException e) {
+        UserResponseException userResponseException = new UserResponseException("User with this email already exists");
+        return new ResponseEntity<>(userResponseException, HttpStatus.BAD_REQUEST);
+    }
+}

@@ -1,7 +1,27 @@
+let URL = "http://localhost:8080/api/user";
+const roleUrl = 'http://localhost:8080/api/roles';
+
+
+// получаем роли с сервера
+const selectRoleForm = document.getElementById('roles');
+
+fetch(roleUrl)
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        let options = '';
+        for (const [k, v] of Object.entries(data)) {
+            options += `<option value="${Number(k) + 1}">${v.name}</option>`;
+        }
+        selectRoleForm.innerHTML = options;
+        console.log(options)
+    })
+
+
+// получаем пользователей с сервера
 let userTable = document.querySelector(".body__list");
 let outputUser = "";
 let roleLet;
-let URL = "http://localhost:8080/api/user";
 
 const renderTable = (user) => {
     user.forEach(user => {
@@ -31,26 +51,12 @@ const renderTable = (user) => {
 
 
 }
-// получаем пользователей с сервера
+
 fetch(URL)
     .then(res => res.json())
     .then(data => renderTable(data))
 
-const selectRoleForm = document.getElementById('roles');
-const rolesListUrl = 'http://localhost:8080/api/roles';
 
-
-fetch(rolesListUrl)
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-        let options = '';
-        for (const [k, v] of Object.entries(data)) {
-            options += `<option value="${Number(k) + 1}">${v.name}</option>`;
-        }
-        selectRoleForm.innerHTML = options;
-        console.log(options)
-    })
 
 // добавляем пользователя
 let firstNameField = document.querySelector(".firstname__input");
@@ -61,7 +67,6 @@ let ageField = document.querySelector(".age__input");
 let addNewUserBtn = document.querySelector(".addUser__btn");
 let userFormNew = document.querySelector("#user_form_new")
 let roleById = document.getElementById('roles');
-
 
 addNewUserBtn.addEventListener("click", (e) => {
     const roles = [];
@@ -108,6 +113,8 @@ addNewUserBtn.addEventListener("click", (e) => {
 });
 
 
+
+// заполнение форм delete и edit
 userTable.addEventListener('click', (e) => {
     console.log(e.target)
     if (e.target.id === 'delbtn') {
@@ -134,7 +141,7 @@ userTable.addEventListener('click', (e) => {
                 document.querySelector("#lastnameEdit").value = data.surName
                 document.querySelector("#emailEdit").value = data.username
                 document.querySelector("#ageEdit").value = data.age
-                fetch(rolesListUrl)
+                fetch(roleUrl)
                     .then(res => res.json())
                     .then(rolesData => {
                         let options = '';
@@ -153,6 +160,8 @@ userTable.addEventListener('click', (e) => {
 })
 
 
+
+// удаление пользователя
 let modalFormDelete = document.querySelector('#modal__form__delete');
 
 modalFormDelete.addEventListener('submit', (e) => {
@@ -176,6 +185,9 @@ modalFormDelete.addEventListener('submit', (e) => {
 
 })
 
+
+
+// изменение пользователя
 let modalFormEdit = document.querySelector('#modal__form__edit');
 let roleEdit = document.querySelector('#roles_edit')
 

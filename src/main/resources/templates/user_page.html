@@ -11,7 +11,7 @@
 
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <h4 th:text="${authUser.getUsername()} + '  With Roles:  ' +  ${authUser.getStringRole()}" class="navbar-brand">USER</h4>
+                <h4 th:text="${authUser.getUsername()} + '  With Roles:  ' +  ${authUser.getStringRole()}" class="navbar-brand">USER</h4>
         <a href="/logout">
             <button type="button" class="btn btn-secondary">logout</button>
         </a>
@@ -26,7 +26,7 @@
             <div class="position-sticky pt-3">
                 <ul class="nav nav-pills flex-column">
                     <li style="display: block" id="btn_admin" class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/static/user">
+                        <a class="nav-link " aria-current="page" href="/admin">
                             ADMIN
                         </a>
                     </li>
@@ -61,13 +61,13 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th><p th:text="${user.getId()}"></p></th>
-                            <th><p th:text="${user.getName()}"></p></th>
-                            <th><p th:text="${user.getSurName()}"></p></th>
-                            <th><p th:text="${user.getAge()}"></th>
-                            <th><p th:text="${user.getUsername()}"></p></th>
+                            <th><p th:text="${authUser.getId()}"></p></th>
+                            <th><p th:text="${authUser.getName()}"></p></th>
+                            <th><p th:text="${authUser.getSurName()}"></p></th>
+                            <th><p th:text="${authUser.getAge()}"></th>
+                            <th><p th:text="${authUser.getUsername()}"></p></th>
                             <th>
-                                <div th:each="role : ${user.getRole()}">
+                                <div th:each="role : ${authUser.getRole()}">
                                     <p id="role_field" th:text="${role.name.toString()}"></p>
                                 </div>
                             </th>
@@ -80,15 +80,16 @@
     </div>
 
 </div>
+
+</body>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 <script>
-    if (document.getElementById("role_field").textContent.includes("ROLE_ADMIN")){
+    if (document.getElementById("role_field").textContent.includes("ROLE_ADMIN")) {
         document.getElementById("btn_admin").style.display = "block"
-    }else {
+    } else {
         document.getElementById("btn_admin").style.display = "none"
     }
-
 </script>
-</body>
+<script src="../static/adminJS.js"></script>
 </html>
 
