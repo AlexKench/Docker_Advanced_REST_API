@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
@@ -53,12 +52,12 @@ public class RestApiController {
 
     @PostMapping("/user")
     public ResponseEntity<HttpStatus> createNewUser(@RequestBody @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            StringBuilder errorMessage = new StringBuilder();
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            fieldErrors.forEach(fieldError -> errorMessage.append(fieldErrors).append("::: \n"));
-            throw new UserNotCreatedException(errorMessage.toString());
-        }
+//        if (bindingResult.hasErrors()) {
+//            StringBuilder errorMessage = new StringBuilder();
+//            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+//            fieldErrors.forEach(fieldError -> errorMessage.append(fieldErrors).append("::: \n"));
+//            throw new UserNotCreatedException(errorMessage.toString());
+//        }
         userService.save(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }

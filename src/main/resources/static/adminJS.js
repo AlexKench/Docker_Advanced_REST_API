@@ -1,7 +1,7 @@
 let userTable = document.querySelector(".body__list");
 let outputUser = "";
 let roleLet;
-let URL = "http://localhost:8011/api/user";
+let URL = "http://localhost:8080/api/user";
 
 const renderTable = (user) => {
     user.forEach(user => {
@@ -37,7 +37,7 @@ fetch(URL)
     .then(data => renderTable(data))
 
 const selectRoleForm = document.getElementById('roles');
-const rolesListUrl = 'http://localhost:8011/api/roles';
+const rolesListUrl = 'http://localhost:8080/api/roles';
 
 
 fetch(rolesListUrl)
@@ -59,11 +59,11 @@ let userNameField = document.querySelector(".email__input");
 let passwordField = document.querySelector(".password__input");
 let ageField = document.querySelector(".age__input");
 let addNewUserBtn = document.querySelector(".addUser__btn");
+let userFormNew = document.querySelector("#user_form_new")
 let roleById = document.getElementById('roles');
 
 
 addNewUserBtn.addEventListener("click", (e) => {
-    e.preventDefault()
     const roles = [];
     for (let i = 0; i < roleById.options.length; i++) {
         if (roleById.options[i].selected) {
@@ -93,8 +93,13 @@ addNewUserBtn.addEventListener("click", (e) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                const dataArr = []
+                dataArr.push(data)
+                renderTable(dataArr)
+                userFormNew.reset()
+                $('[href="#nav-users"]').show();
             })
+
 
     } catch (error) {
         console.log(error)
@@ -135,7 +140,7 @@ userTable.addEventListener('click', (e) => {
                         let options = '';
                         for (const [id, name] of Object.entries(rolesData)) {
                             const selected = data.role.some(role => role.id === id) ? 'selected' : '';
-                            options += `<option value="${Number(id)+1}" ${selected}>${name.name}</option>`;
+                            options += `<option value="${Number(id) + 1}" ${selected}>${name.name}</option>`;
                         }
 
                         $('#roles_edit').html(options);
@@ -161,8 +166,13 @@ modalFormDelete.addEventListener('submit', (e) => {
             outputUser = ''
         })
     fetch(URL)
-        .then(res => res.json())
-        .then(data => renderTable(data))
+        .then(res => console.log(res))
+        .then(() => {
+            outputUser = ''
+            fetch(URL)
+                .then(res => res.json())
+                .then(data => renderTable(data))
+        })
 
 })
 
@@ -170,13 +180,12 @@ let modalFormEdit = document.querySelector('#modal__form__edit');
 let roleEdit = document.querySelector('#roles_edit')
 
 modalFormEdit.addEventListener('submit', (e) => {
-    e.preventDefault()
     const rol = [];
-    for (let i = 1; i < roleEdit.options.length+1; i++) {
-        if (roleEdit.options[i-1].selected) {
+    for (let i = 1; i < roleEdit.options.length + 1; i++) {
+        if (roleEdit.options[i - 1].selected) {
             rol.push({
-                id: roleEdit.options[i-1].value,
-                name: roleEdit.options[i-1].text
+                id: roleEdit.options[i - 1].value,
+                name: roleEdit.options[i - 1].text
             });
         }
     }
@@ -200,10 +209,10 @@ modalFormEdit.addEventListener('submit', (e) => {
         .then(res => console.log(res))
         .then(() => {
             outputUser = ''
+            fetch(URL)
+                .then(res => res.json())
+                .then(data => renderTable(data))
         })
-    fetch(URL)
-        .then(res => res.json())
-        .then(data => console.log(data))
 
 })
 
