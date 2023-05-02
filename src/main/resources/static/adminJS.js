@@ -116,7 +116,7 @@ addNewUserBtn.addEventListener("click", (e) => {
 
 // заполнение форм delete и edit
 userTable.addEventListener('click', (e) => {
-    console.log(e.target)
+    e.preventDefault()
     if (e.target.id === 'delbtn') {
         fetch(`${URL}/${e.target.dataset.id}`)
             .then(res => res.json())
@@ -151,6 +151,7 @@ userTable.addEventListener('click', (e) => {
                         }
 
                         $('#roles_edit').html(options);
+                        $('#editModal').show()
                     })
                     .catch(err => console.error(err));
             });
@@ -192,6 +193,7 @@ let modalFormEdit = document.querySelector('#modal__form__edit');
 let roleEdit = document.querySelector('#roles_edit')
 
 modalFormEdit.addEventListener('submit', (e) => {
+    e.preventDefault()
     const rol = [];
     for (let i = 1; i < roleEdit.options.length + 1; i++) {
         if (roleEdit.options[i - 1].selected) {
@@ -221,9 +223,11 @@ modalFormEdit.addEventListener('submit', (e) => {
         .then(res => console.log(res))
         .then(() => {
             outputUser = ''
+            $('#editModal').hide()
             fetch(URL)
                 .then(res => res.json())
                 .then(data => renderTable(data))
+            $('[href="#nav-users"]').show();
         })
 
 })
