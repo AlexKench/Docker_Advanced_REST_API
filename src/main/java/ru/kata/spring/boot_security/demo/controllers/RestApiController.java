@@ -76,12 +76,6 @@ public class RestApiController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/main")
-    public ResponseEntity<User> showUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-        return ResponseEntity.ok(user);
-    }
 
 
     @ExceptionHandler
