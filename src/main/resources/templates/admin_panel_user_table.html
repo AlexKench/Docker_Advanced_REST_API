@@ -142,147 +142,145 @@
                             </div>
                         </div>
                     </div>
-                    <!--JavaScript-->
-                </div>
-            </div>
-        </div>
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                         aria-hidden="true">
+                        <form id="editModalForm">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Edit user</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <div class="form-group required">
+                                            <div class="controls">
 
-    </div>
-</div>
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-     aria-hidden="true">
-    <form id="editModalForm">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit user</h5>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <div class="form-group required">
-                        <div class="controls">
+                                                <label for="idEdit"><b>ID</b></label>
+                                                <input type="number"
+                                                       class="form-control" id="idEdit"
+                                                       disabled>
+                                                <br>
+                                                <label for="nameEdit"><b>First name</b></label>
+                                                <input type="text"
+                                                       class="form-control" id="nameEdit"
+                                                       required/>
+                                                <br>
+                                                <label for="lastnameEdit"><b>Last
+                                                    name</b></label>
+                                                <input type="text"
+                                                       class="form-control" id="lastnameEdit"
+                                                       required/>
+                                                <br>
+                                                <label for="ageEdit"><b>Age</b></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       id="ageEdit"/>
+                                                <br>
+                                                <label for="emailEdit"><b>Email</b></label>
+                                                <input type="email"
+                                                       class="form-control" id="emailEdit"
+                                                       required/>
+                                                <br>
+                                                <label for="passwordEdit"><b>Password</b></label>
+                                                <input type="password"
+                                                       class="form-control"
+                                                       id="passwordEdit"/>
+                                                <br>
+                                                <div class="form-group text-center">
+                                                    <label class="col-form-label font-weight-bold"
+                                                           for="roles_edit">Role</label>
+                                                    <select class="form-control" id="roles_edit" multiple size="2">
 
-                            <label for="idEdit"><b>ID</b></label>
-                            <input type="number"
-                                   class="form-control" id="idEdit"
-                                   disabled>
-                            <br>
-                            <label for="nameEdit"><b>First name</b></label>
-                            <input type="text"
-                                   class="form-control" id="nameEdit"
-                                   required/>
-                            <br>
-                            <label for="lastnameEdit"><b>Last
-                                name</b></label>
-                            <input type="text"
-                                   class="form-control" id="lastnameEdit"
-                                   required/>
-                            <br>
-                            <label for="ageEdit"><b>Age</b></label>
-                            <input type="number"
-                                   class="form-control"
-                                   id="ageEdit"/>
-                            <br>
-                            <label for="emailEdit"><b>Email</b></label>
-                            <input type="email"
-                                   class="form-control" id="emailEdit"
-                                   required/>
-                            <br>
-                            <label for="passwordEdit"><b>Password</b></label>
-                            <input type="password"
-                                   class="form-control"
-                                   id="passwordEdit"/>
-                            <br>
-                            <div class="form-group text-center">
-                                <label class="col-form-label font-weight-bold"
-                                       for="roles_edit">Role</label>
-                                <select class="form-control" id="roles_edit" multiple size="2">
-
-                                </select>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button"
-                                        class="btn btn-secondary"
-                                        data-dismiss="modal">Close
-                                </button>
-                                <button type="submit"
-                                        class="btn btn-primary">
-                                    Edit
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<!--Модальное Окно  DELETE-->
-<div aria-hidden="true" aria-labelledby="deleteModalLabel" id="deleteModal"
-     tabindex="-1" class="modal fade">
-    <div class="modal-dialog">
-        <div id="delete__content" class="modal-content">
-            <form id="modal__form__delete">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Delete
-                        user</h5>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <div class="form-group required">
-                        <div class="controls">
-
-                            <label for="idDel"><b>ID</b></label>
-                            <input class="form-control" id="idDel">
-                            <br>
-
-                            <label for="firstnameDel"><b>First name</b></label>
-                            <input class="form-control" id="firstnameDel" disabled/>
-                            <br>
-
-                            <label for="lastnameDel"><b>Last name</b></label>
-                            <input class="form-control" id="lastnameDel" disabled/>
-                            <br>
-
-                            <label for="ageDel"><b>Age</b></label>
-                            <input type="number" class="form-control" id="ageDel" disabled/>
-                            <br>
-
-                            <label for="emailDel"><b>Email</b></label>
-                            <input type="email" class="form-control" id="emailDel" disabled/>
-                            <br>
-
-                            <label for="passwordDel"><b>Password</b></label>
-                            <input type="password" class="form-control" id="passwordDel"
-                                   disabled/>
-                            <br>
-                            <label for="roles_delete"><b>Role</b></label>
-                            <input type="text" class="form-control" id="roles_delete" disabled/>
-                            <div id="btn_del_edit">
-                                <div class="modal-footer">
-                                    <button type="button"
-                                            class="btn btn-secondary"
-                                            data-dismiss="modal">Close
-                                    </button>
-                                    <button id="delete_user" type="submit"
-                                            class="btn btn-danger delete__btn">
-                                        Delete
-                                    </button>
+                                                    </select>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                            class="btn btn-secondary"
+                                                            data-dismiss="modal">Close
+                                                    </button>
+                                                    <button type="submit"
+                                                            class="btn btn-primary">
+                                                        Edit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </form>
+                    </div>
+                    <!--Модальное Окно  DELETE-->
+                    <div aria-hidden="true" aria-labelledby="deleteModalLabel" id="deleteModal"
+                         tabindex="-1" class="modal fade">
+                        <div class="modal-dialog">
+                            <div id="delete__content" class="modal-content">
+                                <form id="modal__form__delete">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Delete
+                                            user</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <div class="form-group required">
+                                            <div class="controls">
+
+                                                <label for="idDel"><b>ID</b></label>
+                                                <input class="form-control" id="idDel">
+                                                <br>
+
+                                                <label for="firstnameDel"><b>First name</b></label>
+                                                <input class="form-control" id="firstnameDel" disabled/>
+                                                <br>
+
+                                                <label for="lastnameDel"><b>Last name</b></label>
+                                                <input class="form-control" id="lastnameDel" disabled/>
+                                                <br>
+
+                                                <label for="ageDel"><b>Age</b></label>
+                                                <input type="number" class="form-control" id="ageDel" disabled/>
+                                                <br>
+
+                                                <label for="emailDel"><b>Email</b></label>
+                                                <input type="email" class="form-control" id="emailDel" disabled/>
+                                                <br>
+
+                                                <label for="passwordDel"><b>Password</b></label>
+                                                <input type="password" class="form-control" id="passwordDel"
+                                                       disabled/>
+                                                <br>
+                                                <label for="roles_delete"><b>Role</b></label>
+                                                <input type="text" class="form-control" id="roles_delete" disabled/>
+                                                <div id="btn_del_edit">
+                                                    <div class="modal-footer">
+                                                        <button type="button"
+                                                                class="btn btn-secondary"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                        <button id="delete_user" type="submit"
+                                                                class="btn btn-danger delete__btn">
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+
 
 </body>
 

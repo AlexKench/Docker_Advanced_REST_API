@@ -227,7 +227,6 @@ modalFormEdit.addEventListener('submit', (e) => {
                 .then(res => res.json())
                 .then(data => renderTable(data))
         })
-
 })
 
 
