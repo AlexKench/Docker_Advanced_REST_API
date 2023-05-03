@@ -57,7 +57,6 @@ fetch(URL)
     .then(data => renderTable(data))
 
 
-
 // добавляем пользователя
 let firstNameField = document.querySelector(".firstname__input");
 let surNameField = document.querySelector(".surname__input");
@@ -68,7 +67,7 @@ let addNewUserBtn = document.querySelector(".addUser__btn");
 let userFormNew = document.querySelector("#user_form_new")
 let roleById = document.getElementById('roles');
 
-addNewUserBtn.addEventListener("click", (e) => {
+userFormNew.addEventListener("submit", (e) => {
     const roles = [];
     for (let i = 0; i < roleById.options.length; i++) {
         if (roleById.options[i].selected) {
@@ -101,8 +100,10 @@ addNewUserBtn.addEventListener("click", (e) => {
                 const dataArr = []
                 dataArr.push(data)
                 renderTable(dataArr)
-                userFormNew.reset()
-                $('[href="#nav-users"]').show();
+                fetch(URL)
+                    .then(res => res.json())
+                    .then(data => renderTable(data))
+                $('[href="#users_table"]').show();
             })
 
 
@@ -111,7 +112,6 @@ addNewUserBtn.addEventListener("click", (e) => {
     }
     console.log('obj', user)
 });
-
 
 
 // заполнение форм delete и edit
@@ -151,7 +151,8 @@ userTable.addEventListener('click', (e) => {
                         }
 
                         $('#roles_edit').html(options);
-                        $('#editModal').show()
+                        $('#editModal').modal()
+
                     })
                     .catch(err => console.error(err));
             });
@@ -159,7 +160,6 @@ userTable.addEventListener('click', (e) => {
 
     }
 })
-
 
 
 // удаление пользователя
@@ -187,9 +187,8 @@ modalFormDelete.addEventListener('submit', (e) => {
 })
 
 
-
 // изменение пользователя
-let modalFormEdit = document.querySelector('#modal__form__edit');
+let modalFormEdit = document.querySelector('#editModalForm');
 let roleEdit = document.querySelector('#roles_edit')
 
 modalFormEdit.addEventListener('submit', (e) => {
@@ -222,12 +221,11 @@ modalFormEdit.addEventListener('submit', (e) => {
     })
         .then(res => console.log(res))
         .then(() => {
+            $('#editModal').modal('hide')
             outputUser = ''
-            $('#editModal').hide()
             fetch(URL)
                 .then(res => res.json())
                 .then(data => renderTable(data))
-            $('[href="#nav-users"]').show();
         })
 
 })
