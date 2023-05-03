@@ -49,7 +49,6 @@ const renderTable = (user) => {
     });
     userTable.innerHTML = outputUser;
 
-
 }
 
 fetch(URL)
@@ -63,7 +62,6 @@ let surNameField = document.querySelector(".surname__input");
 let userNameField = document.querySelector(".email__input");
 let passwordField = document.querySelector(".password__input");
 let ageField = document.querySelector(".age__input");
-let addNewUserBtn = document.querySelector(".addUser__btn");
 let userFormNew = document.querySelector("#user_form_new")
 let roleById = document.getElementById('roles');
 
@@ -100,10 +98,8 @@ userFormNew.addEventListener("submit", (e) => {
                 const dataArr = []
                 dataArr.push(data)
                 renderTable(dataArr)
-                fetch(URL)
-                    .then(res => res.json())
-                    .then(data => renderTable(data))
-                $('[href="#users_table"]').show();
+                userFormNew.reset()
+                $('[href="#users_table"]').tab('show');
             })
 
 
